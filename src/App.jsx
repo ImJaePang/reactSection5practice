@@ -4,7 +4,7 @@ function App() {
     <body>
       <div id="header">
         <img src="./assets/investment-calculator-log.png"/>
-        <h1>React Investment Calculator!!</h1>
+        <h1>React Investment Calculator!!!</h1>
       </div>
       <div id="user-input">
         <span className="input-group">
