@@ -1,22 +1,35 @@
 import { useState } from "react";
+import ResultTable from "./resultTable.jsx";
+import {calculateInvestmentResults, formatter} from "../util/investment.js";
 
 export default function userInput() {
-    const [initial, setInitial] = useState(0);
-    const [anualInvenstment, setAnualInvenstment] = useState(0);
+    const [initialInvestment, setInitial] = useState(0);
+    const [annualInvestment, setAnualInvenstment] = useState(0);
     const [expectedReturn, setExpectedReturn] = useState(0);
     const [duration, setDuration] = useState(0);
+    const [annualData, setAnnualData] = useState([]);
     
     function handleInitial(num){
-        setInitial(num.target.value);
+        setInitial(parseFloat(num.target.value));
+        handleAnnualData(parseFloat(num.target.value),annualInvestment,expectedReturn,duration);
     }
     function handleAnualInvenstment(num){
-        setAnualInvenstment(num.target.value);
+        setAnualInvenstment(parseFloat(num.target.value));
+        handleAnnualData(initialInvestment,parseFloat(num.target.value),expectedReturn,duration);
     }
     function handleExpectedReturn(num){
-        setExpectedReturn(num.target.value);
+        setExpectedReturn(parseFloat(num.target.value));
+        handleAnnualData(initialInvestment,annualInvestment,parseFloat(num.target.value),duration);
     }
     function handleDuration(num){
-        setDuration(num.target.value);
+        setDuration(parseFloat(num.target.value));
+        handleAnnualData(initialInvestment,annualInvestment,expectedReturn,parseFloat(num.target.value));
+    }
+    function handleAnnualData (initialInvestment,annualInvestment,expectedReturn,duration){
+
+        const calculatedData = calculateInvestmentResults({initialInvestment,annualInvestment,expectedReturn,duration});
+        console.log("calculatedData", calculatedData);
+        setAnnualData(calculatedData);
     }
 
 
@@ -25,11 +38,11 @@ export default function userInput() {
             <div className="D">
                 <span className="input-group">
                     <label>INITIAL INVESTMENT !</label>
-                    <input type="number" onChange={handleInitial} value={initial} />
+                    <input type="number" onChange={handleInitial} value={initialInvestment} />
                 </span>
                 <span className="input-group">
                     <label>ANUAL INVENSTMENT</label>
-                    <input type="number" onChange={handleAnualInvenstment} value={anualInvenstment} />
+                    <input type="number" onChange={handleAnualInvenstment} value={annualInvestment} />
                 </span>
             </div>
 
@@ -43,6 +56,9 @@ export default function userInput() {
                     <input type="number" onChange={handleDuration} value={duration} />
                 </span>
             </div>
+            {duration ? <ResultTable annualData={annualData} initialInvestment={initialInvestment} /> : false}
+            
         </div>
+
     );
 }

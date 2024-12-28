@@ -1,4 +1,10 @@
-export default function resultTable() {
+import {formatter} from "../util/investment.js";
+
+export default function resultTable({ annualData, initialInvestment }) {
+    console.log("in annualData", annualData);
+    let sumInterest = 0;
+    let sumInvested = initialInvestment;
+
     return (
         <table id="result">
             <thead>
@@ -11,13 +17,22 @@ export default function resultTable() {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>$1,234</td>
-                    <td>$34</td>
-                    <td>$56</td>
-                    <td>$1200</td>
-                </tr>
+                {
+
+                    annualData.map((yearData, index) => (
+                        
+                            <tr key={index}>
+                                <td>{yearData.year}</td>
+                                <td>{formatter.format(yearData.valueEndOfYear)}</td>
+                                <td>{formatter.format(yearData.interest)}</td>
+                                <td>{formatter.format(sumInterest += yearData.interest)}</td>
+                                <td>{formatter.format(sumInvested += yearData.annualInvestment)}</td>
+                            </tr>
+                        
+                    ))
+                
+                }
+
             </tbody>
         </table>
     );

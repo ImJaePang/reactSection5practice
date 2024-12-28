@@ -1,6 +1,6 @@
 import Header from "./components/header.jsx";
 import UserInput from "./components/userInput.jsx";
-import ResultTable from "./components/resultTable.jsx";
+// import ResultTable from "./components/resultTable.jsx";
 
 function App() {
     return (
@@ -9,7 +9,7 @@ function App() {
 
             <UserInput />
 
-            <ResultTable />
+            {/* <ResultTable /> */}
         </body>
     );
 }

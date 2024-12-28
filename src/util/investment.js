@@ -24,6 +24,11 @@ export function calculateInvestmentResults({
     });
   }
 
+  // console.log(  initialInvestment,
+  //   annualInvestment,
+  //   expectedReturn,
+  //   duration,);
+
   return annualData;
 }
 
